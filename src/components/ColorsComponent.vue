@@ -3,7 +3,7 @@
     <label class="flex items-center cursor-pointer">
       <span>{{ props.title }}</span>
       <div class="ml-auto flex">
-        <template v-for="(color, index) in props.colors" :key="index">
+        <template v-for="(color, colorIndex) in props.colors" :key="index">
           <input
             type="radio"
             :id="'color-' + color + '-' + props.id"
@@ -15,7 +15,7 @@
             :for="'color-' + color + '-' + props.id"
             :class="[
               'w-5 h-5 border border-gray-400 rounded-sm ml-2 cursor-pointer transition-all duration-300 ease-in-out brightness-100 hover:brightness-200',
-              WidgetBackgroundColors[color as keyof typeof WidgetBackgroundColors],
+              backgroundColors[colorIndex],
               { 'border-[3px]': selectedColor === color }
             ]"
           ></label>
@@ -26,14 +26,15 @@
 </template>
 
 <script setup lang="ts">
-import { WidgetBackgroundColors, type WidgetColorType } from '@/types/widget-colors.enum'
-import { computed, ref } from 'vue'
+import type { WidgetBackgroundColors, WidgetColorType } from '@/types/widget-colors.enum';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
   id: number
   title: string
   selectedColor: WidgetColorType
   colors: WidgetColorType[]
+  backgroundColors: WidgetBackgroundColors[]
   setFunction: (newValue: WidgetColorType) => void
 }>()
 

@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
   id: number
@@ -73,7 +73,7 @@ const props = defineProps<{
 const linked = ref<boolean>(props.linked)
 const showInfo = ref<boolean>(false)
 
-let timeoutId: number
+let timeoutId: NodeJS.Timeout
 const hideInfoAfterDelay = () => {
   timeoutId = setTimeout(() => {
     showInfo.value = false

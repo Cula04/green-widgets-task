@@ -3,7 +3,9 @@
     <WidgetHeader
       :productQuantity="productQuantity"
       :action="widget.action"
-      :selectedColor="widget.selectedColor"
+      :backgroundColor="WidgetBackgroundColors[widget.selectedColor as keyof typeof WidgetBackgroundColors]"
+      :textColor="WidgetTextColors[widget.selectedColor as keyof typeof WidgetTextColors]"
+      :fillColor="WidgetFillColors[widget.selectedColor as keyof typeof WidgetFillColors]"
     />
 
     <CheckBoxComponent
@@ -24,6 +26,7 @@
       :title="'Badge color'"
       :colors="widgetColorValues"
       :selectedColor="widget.selectedColor"
+      :backgroundColors="Object.values(WidgetBackgroundColors)"
       :setFunction="
         (newValue: string) => {
           store.dispatch(WidgetActions.setSelectedColor, { id: widget.id, selectedColor: newValue })
@@ -51,7 +54,7 @@ import ToggleComponent from '@/components/ToggleComponent.vue'
 import WidgetHeader from '@/components/WidgetHeader.vue'
 import { widgetStoreKey } from '@/store'
 import { WidgetActions } from '@/types/widget-actions.enum'
-import { widgetColorValues } from '@/types/widget-colors.enum'
+import { WidgetBackgroundColors, WidgetFillColors, WidgetTextColors, widgetColorValues } from '@/types/widget-colors.enum'
 import type { WidgetProductType } from '@/types/widget-product-type.enum'
 import { WidgetProductType as WidgetProductTypeValue } from '@/types/widget-product-type.enum'
 import type { Widget } from '@/types/widget.type'

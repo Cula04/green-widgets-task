@@ -2,10 +2,11 @@
   <div
     class="widget-container rounded-xl p-4 mb-4"
     :class="[
-      WidgetBackgroundColors[props.selectedColor as keyof typeof WidgetBackgroundColors],
-      WidgetTextColors[props.selectedColor as keyof typeof WidgetTextColors],
-      WidgetFillColors[props.selectedColor as keyof typeof WidgetFillColors]
+      props.backgroundColor,
+        props.textColor,
+        props.fillColor
     ]"
+
   >
     <div class="flex items-center">
       <div class="mr-4">
@@ -25,15 +26,14 @@
 </template>
 
 <script setup lang="ts">
-import {
-  WidgetBackgroundColors,
-  WidgetFillColors,
-  WidgetTextColors
-} from '@/types/widget-colors.enum'
 
 const props = defineProps<{
   productQuantity: string
   action: string
-  selectedColor: string
+  backgroundColor: string
+  textColor: string
+  fillColor: string
+
 }>()
 </script>
+
