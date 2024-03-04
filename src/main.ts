@@ -1,6 +1,6 @@
-import './assets/main.css'
-
 import { createApp } from 'vue'
 import App from './App.vue'
+import './index.css'
+import { widgetStore, widgetStoreKey } from './store'
 
-createApp(App).mount('#app')
+createApp(App).use(widgetStore, widgetStoreKey).mount('#app')

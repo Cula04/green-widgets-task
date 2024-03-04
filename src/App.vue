@@ -1,47 +1,34 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import ProductWidget from '@/components/ProductWidget.vue'
+import { widgetStoreKey } from '@/store'
+import { onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
+
+const widgetStore = useStore(widgetStoreKey)
+const widgetIds = ref<number[]>([])
+const widgetKeys = ref<string[]>([])
+
+// Fetch initial widget data from the Vuex store
+onMounted(async () => {
+  await widgetStore.dispatch('fetchWidgetsAction')
+  widgetIds.value = widgetStore.state.widgets.map((widget) => widget.id)
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div id="app">
+    <div class="container mt-3 mx-auto p-4 bg-dirtyWhite shadow-lg rounded-lg">
+      <h1 class="text-3xl text-left mb-4">Per Product Widgets</h1>
+      <hr class="border-t border-gray-700 my-4" />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 justify-center">
+        <ProductWidget
+          v-for="(widgetId, index) in widgetIds"
+          :key="widgetKeys[index]"
+          :widgetId="widgetId"
+        />
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<style scoped></style>
