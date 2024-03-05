@@ -3,7 +3,7 @@
     <label class="flex items-center cursor-pointer">
       <span>{{ props.title }}</span>
       <div class="ml-auto flex">
-        <template v-for="(color, colorIndex) in props.colors" :key="index">
+        <template v-for="(color, colorIndex) in props.colors" :key="colorIndex">
           <input
             type="radio"
             :id="'color-' + color + '-' + props.id"
@@ -26,8 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import type { WidgetBackgroundColors, WidgetColorType } from '@/types/widget-colors.enum';
-import { computed, ref } from 'vue';
+import type { WidgetBackgroundColors, WidgetColorType } from '@/types/widget-colors.enum'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{
   id: number
